@@ -11,12 +11,12 @@
 
 Name:		%{?scl_prefix}perl-B-Hooks-EndOfScope
 Version:	0.24
-Release:	9%{?dist}
+Release:	10%{?dist}
 License:	GPL+ or Artistic
 Summary:	Execute code after scope compilation finishes
 URL:		https://metacpan.org/release/B-Hooks-EndOfScope
 Source0:	https://cpan.metacpan.org/authors/id/E/ET/ETHER/B-Hooks-EndOfScope-%{version}.tar.gz
-Patch0:		B-Hooks-EndOfScope-0.13-shellbangs.patch
+Patch0:		B-Hooks-EndOfScope-0.24-Remove-shellbangs-from-the-tests.patch
 BuildArch:	noarch
 # Build
 BuildRequires:	coreutils
@@ -99,7 +99,7 @@ surrounding scope.
 %setup -q -n B-Hooks-EndOfScope-%{version}
 
 # Remove shellbangs from tests to placate rpmlint
-%patch0
+%patch0 -p1
 
 # British-English spelling LICENCE upsets US spell checker
 echo LICENCE >> xt/author/pod-spell.t
@@ -130,6 +130,9 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/B::Hooks::EndOfScope::XS.3*
 
 %changelog
+* Wed Mar 25 2020 Petr Pisar <ppisar@redhat.com> - 0.24-10
+- Remove shebangs from the tests (bug #1817032)
+
 * Fri Jan 03 2020 Jitka Plesnikova <jplesnik@redhat.com> - 0.24-9
 - SCL
 
